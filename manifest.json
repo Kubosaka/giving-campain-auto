@@ -1,0 +1,10 @@
+{
+  "name": "NUTFES-Giving-Campaign",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "技大祭実行委員会のギビングキャンペーン用の拡張機能です",
+  "permissions": ["tabs", "contextMenus", "scripting", "activeTab"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
