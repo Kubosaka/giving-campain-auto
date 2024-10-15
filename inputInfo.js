@@ -1,7 +1,7 @@
 const LAST_NAME = "山田";
 const FIRST_NAME = "太郎";
-const KANA_LAST_NAME = "山田";
-const KANA_FIRST_NAME = "太郎";
+const KANA_LAST_NAME = "やまだ";
+const KANA_FIRST_NAME = "たろう";
 // "男性", "女性", "その他", "無回答"
 const GENDER = "男性";
 const BIRTH_YEAR = "2001";
