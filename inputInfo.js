@@ -2,15 +2,12 @@ const LAST_NAME = "山田";
 const FIRST_NAME = "太郎";
 const KANA_LAST_NAME = "やまだ";
 const KANA_FIRST_NAME = "たろう";
-// "男性", "女性", "その他", "無回答"
 const GENDER = "男性";
-const BIRTH_YEAR = "2001";
-const BIRTH_MONTH = "9";
-const BIRTH_DAY = "7";
-const EMAIL = "test@example.com";
-//ハイフンなし
+const BIRTH_YEAR = 2000;
+const BIRTH_MONTH = 1;
+const BIRTH_DAY = 1;
+const EMAIL = "test@exmaple.com";
 const TEL = "00000000000";
-const GROUP_RELATION1 = "その他";
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -116,10 +113,16 @@ async function autoInput() {
   setRadioValue(document.getElementById(":rd:"));
 
   // どのようにしてGIVING CAMPAIGNを知りましたか？でその他を選択
-  setRadioValue(document.getElementById(":r9:"));
+  document
+    .querySelector('input[name="otherRelationship"][value="other"]')
+    .click();
+
+  setRadioValue(
+    document.querySelector('input[name="gc2024Sources"][value="other"]')
+  );
 
   // 同意する
-  setRadioValue(document.getElementById(":ra:"));
+  setRadioValue(document.querySelector('input[name="policyApproval"]'));
 }
 
 async function confirmAutoInput() {
