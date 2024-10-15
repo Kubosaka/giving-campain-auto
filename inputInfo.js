@@ -109,9 +109,6 @@ async function autoInput() {
     document.querySelector('input[name="gender"][value="female"]').click();
   }
 
-  // 応援団体との関係でその他を選択
-  setRadioValue(document.getElementById(":rd:"));
-
   // どのようにしてGIVING CAMPAIGNを知りましたか？でその他を選択
   document
     .querySelector('input[name="otherRelationship"][value="other"]')
