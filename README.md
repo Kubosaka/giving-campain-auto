@@ -6,8 +6,8 @@ inputInfo.js は個人情報の自動入力です。
 ```
 const LAST_NAME = "山田";
 const FIRST_NAME = "太郎";
-const KANA_LAST_NAME = "山田";
-const KANA_FIRST_NAME = "太郎";
+const KANA_LAST_NAME = "やまだ";
+const KANA_FIRST_NAME = "たろう";
 const GENDER = "男性";
 const BIRTH_YEAR = "2001";
 const BIRTH_MONTH = "9";
