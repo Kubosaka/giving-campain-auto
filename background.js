@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
-    id: "inputInfo",
+    id: "autoInputInfo",
     title: "[GIVING CAMPAIGN] 情報入力",
     contexts: ["all"],
   });
@@ -13,10 +13,10 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId === "inputInfo") {
+  if (info.menuItemId === "autoInputInfo") {
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      files: ["inputInfo.js"],
+      files: ["autoInputInfo.js"],
     });
   }
 
