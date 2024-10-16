@@ -1,8 +1,15 @@
 ## 注意
 - 即席で作ったので、バグやエラーがでる可能性があります。
 - 拡張機能は使わない時はOFFにしておいた方がよさです
+- 旧バージョンからアップデートしました
+- 定数は使わずブラウザで入力するようにしています
+- 旧バージョンは `old` ブランチにあります
+
+使い方など
+https://docs.google.com/document/d/1FnEEG-mElm2ESgzWYZ4mHVN2wwAFjIGviRf1rtdXJ6c/edit?tab=t.0
 
 
+後に修正します
 # 説明
 
 inputInfo.js は個人情報の自動入力です。
