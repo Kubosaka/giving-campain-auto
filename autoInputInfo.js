@@ -1,13 +1,13 @@
-const LAST_NAME = "山田";
-const FIRST_NAME = "太郎";
-const KANA_LAST_NAME = "やまだ";
-const KANA_FIRST_NAME = "たろう";
-const GENDER = "男性";
-const BIRTH_YEAR = 2000;
-const BIRTH_MONTH = 1;
-const BIRTH_DAY = 1;
-const EMAIL = "test@exmaple.com";
-const TEL = "00000000000";
+function loadFromLocalStorage() {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get("userInfo", (result) => {
+      if (chrome.runtime.lastError) {
+        return reject(chrome.runtime.lastError);
+      }
+      resolve(result.userInfo || null);
+    });
+  });
+}
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -43,7 +43,8 @@ function setRadioValue(element) {
   element.dispatchEvent(new Event("click", { bubbles: true }));
 }
 
-async function autoInput() {
+async function autoInput(userInfo) {
+  console.log("Auto inputting user info:", userInfo);
   await delayedFunction();
 
   const reactSelectInputs = document.querySelectorAll("#react-select-rs-input");
@@ -54,7 +55,7 @@ async function autoInput() {
     setTimeout(() => {
       const options = document.querySelectorAll(".rs__option");
       if (options.length !== 0) {
-        options[getYearIndex(BIRTH_YEAR)].click();
+        options[getYearIndex(userInfo.birthYear)].click();
       }
     }, 500);
 
@@ -62,7 +63,7 @@ async function autoInput() {
     setTimeout(() => {
       const options = document.querySelectorAll(".rs__option");
       if (options.length !== 0) {
-        options[getMonthOrDayIndex(BIRTH_MONTH)].click();
+        options[getMonthOrDayIndex(userInfo.birthMonth)].click();
       }
     }, 500);
 
@@ -70,11 +71,11 @@ async function autoInput() {
     setTimeout(() => {
       const options = document.querySelectorAll(".rs__option");
       if (options.length !== 0) {
-        options[getMonthOrDayIndex(BIRTH_DAY)].click();
+        options[getMonthOrDayIndex(userInfo.birthDay)].click();
       }
     }, 500);
 
-    reactSelectInputs[3].dispatchEvent(arrowDownEvent);
+    reactSelectInputs[4].dispatchEvent(arrowDownEvent);
     setTimeout(() => {
       const options = document.querySelectorAll(".rs__option");
       if (options.length !== 0) {
@@ -96,16 +97,16 @@ async function autoInput() {
   );
   const emailInput = document.querySelector('input[name="email"]');
   const phoneNumberInput = document.querySelector('input[name="phoneNumber"]');
-  setInputValue(lastNameInput, LAST_NAME);
-  setInputValue(firstNameInput, FIRST_NAME);
-  setInputValue(kanaLastNameInput, KANA_LAST_NAME);
-  setInputValue(kanaFirstNameInput, KANA_FIRST_NAME);
-  setInputValue(emailInput, EMAIL);
-  setInputValue(phoneNumberInput, TEL);
+  setInputValue(lastNameInput, userInfo.lastName);
+  setInputValue(firstNameInput, userInfo.firstName);
+  setInputValue(kanaLastNameInput, userInfo.kanaLastName);
+  setInputValue(kanaFirstNameInput, userInfo.kanaFirstName);
+  setInputValue(emailInput, userInfo.email);
+  setInputValue(phoneNumberInput, userInfo.tel);
 
-  if (GENDER === "男性") {
+  if (userInfo.gender === "男性") {
     document.querySelector('input[name="gender"][value="male"]').click();
-  } else if (GENDER === "女性") {
+  } else if (userInfo.gender === "女性") {
     document.querySelector('input[name="gender"][value="female"]').click();
   }
 
@@ -122,8 +123,16 @@ async function autoInput() {
   setRadioValue(document.querySelector('input[name="policyApproval"]'));
 }
 
-async function confirmAutoInput() {
-  await autoInput();
-}
-
-confirmAutoInput();
+loadFromLocalStorage()
+  .then((userInfo) => {
+    if (userInfo) {
+      console.log("User info found:", userInfo);
+      autoInput(userInfo);
+    } else {
+      console.log("No user info found.");
+      return null;
+    }
+  })
+  .catch((error) => {
+    console.error("Error loading from storage:", error);
+  });

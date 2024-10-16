@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ユーザー情報入力フォーム</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>ユーザー情報入力フォーム</h1>
+    <form id="userForm">
+      <label for="lastName">姓:</label>
+      <input
+        type="text"
+        id="lastName"
+        placeholder="例: 山田"
+        required
+      /><br /><br />
+
+      <label for="firstName">名:</label>
+      <input
+        type="text"
+        id="firstName"
+        placeholder="例: 太郎"
+        required
+      /><br /><br />
+
+      <label for="kanaLastName">姓（かな）:</label>
+      <input
+        type="text"
+        id="kanaLastName"
+        placeholder="例: やまだ"
+        required
+      /><br /><br />
+
+      <label for="kanaFirstName">名（かな）:</label>
+      <input
+        type="text"
+        id="kanaFirstName"
+        placeholder="例: たろう"
+        required
+      /><br /><br />
+
+      <label for="gender">性別:</label>
+      <input
+        type="text"
+        id="gender"
+        placeholder="例: 男性、女性"
+        required
+      /><br /><br />
+
+      <label for="email">メールアドレス:</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="例: test@example.com"
+        required
+      /><br /><br />
+
+      <label for="tel">電話番号 (ハイフンなし):</label>
+      <input
+        type="tel"
+        id="tel"
+        placeholder="例: 00000000000"
+        required
+      /><br /><br />
+
+      <label for="birthYear">生年:</label>
+      <input
+        type="number"
+        id="birthYear"
+        placeholder="例: 2000"
+        required
+      /><br /><br />
+
+      <label for="birthMonth">生月:</label>
+      <input
+        type="number"
+        id="birthMonth"
+        placeholder="例: 1"
+        required
+      /><br /><br />
+
+      <label for="birthDay">生日:</label>
+      <input
+        type="number"
+        id="birthDay"
+        placeholder="例: 1"
+        required
+      /><br /><br />
+
+      <button type="button" id="submitBtn">送信</button>
+    </form>
+
+    <pre id="output"></pre>
+
+    <script src="input.js"></script>
+  </body>
+</html>
