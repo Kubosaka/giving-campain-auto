@@ -11,6 +11,9 @@ chrome.storage.local.get("userInfo", (result) => {
     document.getElementById("birthYear").value = userInfo.birthYear;
     document.getElementById("birthMonth").value = userInfo.birthMonth;
     document.getElementById("birthDay").value = userInfo.birthDay;
+    document.getElementById("prefecture").value = userInfo.prefecture;
+    document.getElementById("city").value = userInfo.city;
+    document.getElementById("message").value = userInfo.message;
   }
 });
 
@@ -25,6 +28,9 @@ document.getElementById("submitBtn").addEventListener("click", () => {
   const birthYear = Number(document.getElementById("birthYear").value);
   const birthMonth = Number(document.getElementById("birthMonth").value);
   const birthDay = Number(document.getElementById("birthDay").value);
+  const prefecture = document.getElementById("prefecture").value;
+  const city = document.getElementById("city").value;
+  const message = document.getElementById("message").value;
 
   const userInfo = {
     lastName,
@@ -37,6 +43,9 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     birthDay,
     email,
     tel,
+    prefecture,
+    city,
+    message,
   };
 
   console.log(userInfo);
