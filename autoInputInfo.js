@@ -15,11 +15,15 @@ function getGcParticipationCategoryIndex() {
   return 4;
 }
 
-function getYearIndex(year) {
+function getBirthYearIndex(year) {
   return 2025 - year;
 }
 
-function getMonthOrDayIndex(number) {
+function getGraduationYearIndex(year) {
+  return 2033 - year;
+}
+
+function getIndexFromNumber(number) {
   return number - 1;
 }
 
@@ -86,9 +90,7 @@ async function autoInput(userInfo) {
   const relationshipInput = document.querySelector(
     'div[class*="-control"] input[id^="react-select-"]'
   ); // ページ上の最初の汎用react-select
-  const prefectureInput = document.querySelectorAll(
-    'div[class*="-control"] input[id^="react-select-"]'
-  )[1]; // ページ上の2番目の汎用react-select
+  const prefectureInput = document.getElementById("hometownPrefectureId");
 
   // 各react-selectの値を設定
   // 応援団体の参加区分
@@ -100,22 +102,41 @@ async function autoInput(userInfo) {
   // 生年月日
   await selectReactSelectOption(
     birthYearInput,
-    getYearIndex(userInfo.birthYear)
+    getBirthYearIndex(userInfo.birthYear)
   );
   await delay(200);
   await selectReactSelectOption(
     birthMonthInput,
-    getMonthOrDayIndex(userInfo.birthMonth)
+    getIndexFromNumber(userInfo.birthMonth)
   );
   await delay(200);
   await selectReactSelectOption(
     birthDayInput,
-    getMonthOrDayIndex(userInfo.birthDay)
+    getIndexFromNumber(userInfo.birthDay)
   );
   await delay(200);
   await selectReactSelectOption(relationshipInput, userInfo.groupRelationship);
   await delay(200);
   await selectReactSelectOption(prefectureInput, userInfo.prefecture);
+  await delay(200);
+
+  const universityInput = document.getElementById("universityId");
+  const graduationYearInput = document.getElementById("graduationYear");
+  const graduationMonthInput = document.getElementById("graduationMonth");
+  // 大学情報
+  setInputValue(universityInput, userInfo.universityName);
+  await selectReactSelectOption(universityInput, 0);
+  await delay(200);
+  await selectReactSelectOption(
+    graduationYearInput,
+    getGraduationYearIndex(userInfo.graduationYear)
+  );
+  await delay(200);
+  await selectReactSelectOption(
+    graduationMonthInput,
+    getIndexFromNumber(userInfo.graduationMonth)
+  );
+  await delay(200);
 
   await delayedFunction();
 
@@ -154,6 +175,34 @@ async function autoInput(userInfo) {
 
   const cityInput = document.querySelector('input[name="hometownCity"]');
   if (cityInput) setInputValue(cityInput, userInfo.city);
+
+  // 文理区分
+  if (userInfo.majorCategory) {
+    setRadioValue(
+      document.querySelector(
+        `input[name="majorCategory"][value="${userInfo.majorCategory}"]`
+      )
+    );
+  }
+
+  // 学部・学科
+  const facultyInput = document.querySelector('input[name="faculty"]');
+  if (facultyInput) setInputValue(facultyInput, userInfo.faculty);
+
+  const departmentInput = document.querySelector('input[name="department"]');
+  if (departmentInput) setInputValue(departmentInput, userInfo.department);
+
+  // 投票理由 (固定値)
+  setRadioValue(
+    document.querySelector(
+      'input[name="reasonForVoting"][value="project_i_want_to_support"]'
+    )
+  );
+
+  // 団体所属 (固定値)
+  setRadioValue(
+    document.querySelector('input[name="isMemberOfTargetGroup"][value="false"]')
+  );
 
   // どのようにしてGIVING CAMPAIGNを知りましたか？でその他を選択
   setRadioValue(

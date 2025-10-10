@@ -1,3 +1,51 @@
+function loadUserInfo() {
+  chrome.storage.local.get("userInfo", (result) => {
+    if (result.userInfo) {
+      const userInfo = result.userInfo;
+      for (const key in userInfo) {
+        const element = document.getElementById(key);
+        if (element) {
+          element.value = userInfo[key];
+        }
+      }
+    }
+  });
+}
+
+function saveUserInfo() {
+  const userInfo = {
+    lastName: document.getElementById("lastName").value,
+    firstName: document.getElementById("firstName").value,
+    kanaLastName: document.getElementById("kanaLastName").value,
+    kanaFirstName: document.getElementById("kanaFirstName").value,
+    gender: document.getElementById("gender").value,
+    email: document.getElementById("email").value,
+    tel: document.getElementById("tel").value,
+    birthYear: Number(document.getElementById("birthYear").value),
+    birthMonth: Number(document.getElementById("birthMonth").value),
+    birthDay: Number(document.getElementById("birthDay").value),
+    prefecture: document.getElementById("prefecture").value,
+    city: document.getElementById("city").value,
+    groupRelationship: Number(
+      document.getElementById("groupRelationship").value
+    ),
+    universityName: document.getElementById("universityName").value,
+    graduationYear: Number(document.getElementById("graduationYear").value),
+    graduationMonth: Number(document.getElementById("graduationMonth").value),
+    majorCategory: document.getElementById("majorCategory").value,
+    faculty: document.getElementById("faculty").value,
+    department: document.getElementById("department").value,
+    message: document.getElementById("message").value,
+  };
+
+  chrome.storage.local.set({ userInfo }, () => {
+    window.alert("ユーザ情報を保存しました");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadUserInfo);
+document.getElementById("submitBtn").addEventListener("click", saveUserInfo);
+/*
 chrome.storage.local.get("userInfo", (result) => {
   if (result.userInfo) {
     let userInfo = result.userInfo;
@@ -48,9 +96,8 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     message,
   };
 
-  console.log(userInfo);
-
   chrome.storage.local.set({ userInfo }, () => {
     window.alert("ユーザ情報を保存しました");
   });
 });
+*/
